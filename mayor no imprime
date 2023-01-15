@@ -1,0 +1,83 @@
+#include<iostream>
+#include"windows.h"
+using namespace std;
+
+int main()
+{
+	SetConsoleCP(1252);
+	SetConsoleOutputCP(1252);
+	int cantEstudiantes = 100;
+	struct Estudiante{
+		int codigo;
+		string nombre;
+		string apellidos;
+		int nota;
+	}arrEstudiantes[cantEstudiantes];
+	cout << "\tIngrese la cantidad de estudiantes a registrar:\t";
+	cin >> cantEstudiantes;
+	cout << "\n\t\t  INGRESE LA INFORMACION DE ALUMNOS      ";
+	cout << endl << endl;
+	for(int i=0;i<cantEstudiantes;i++)
+	{
+		fflush(stdin);
+		cout << "\n\t Alumno Nro " << i+1 << endl;
+		cout << "\n\t Ingrese su nombre: \t" ;
+		getline(cin,arrEstudiantes[i].nombre);
+		cout << "\n\t Ingrese su apellido: \t";
+		getline(cin,arrEstudiantes[i].apellidos);
+		cout << "\n\t Ingrese su codigo: \t";
+		cin >> arrEstudiantes[i].codigo;
+		cout << "\n\t Ingrese su nota: \t";
+		cin >> arrEstudiantes[i].nota;
+		while(arrEstudiantes[i].nota<5 || arrEstudiantes[i].nota>20){
+			cout << "\n\tERROR!! DEBE SER UN NUMERO ENTRE (5-20), VUELVA A INTENTARLO: \t";
+			cin >> arrEstudiantes[i].nota;
+		}
+		cin.ignore();
+	}
+	float prom = 0.0, suma = 0.0;
+	
+	for(int i=0; i<cantEstudiantes ; i++) //Promedio de estudiantes
+	{
+		suma += arrEstudiantes[i].nota;
+	}
+	prom = suma/cantEstudiantes;
+	
+	int may=0,posmay=0,men=9999999,posmen=0;
+	
+	//Mayor Nota
+	for(int i=0; i< cantEstudiantes ;i++)
+	{
+		if(arrEstudiantes[i].nota > may)
+		{
+			may = arrEstudiantes[i].nota;
+			i = posmay;
+		}
+	}
+	
+	//Menor Nota
+	for(int i=0; i < cantEstudiantes ;i++)
+    {
+    	if(arrEstudiantes[i].nota < men)
+    	{
+    		men = arrEstudiantes[i].nota;
+    		i = posmen;
+		}
+	}
+	cout << endl << endl;
+	cout << "\t\t**** REPORTE DE ALUMNOS ****";
+	cout << endl << endl;
+	for(int i=0; i<cantEstudiantes;i++)
+	{
+		cout << endl;
+		cout << "\n\tCodigo: " << arrEstudiantes[i].codigo << endl;
+		cout << "\n\tNombre: " << arrEstudiantes[i].nombre << endl;
+		cout << "\n\tApellido: " << arrEstudiantes[i].apellidos << endl;
+		cout << "\n\tNota: " << arrEstudiantes[i].nota << endl;
+	}
+	cout << "\n\t MAYOR NOTA: " << arrEstudiantes[posmay].nota << endl;
+	cout << "\n\t MENOR NOTA: " << arrEstudiantes[posmen].nota << endl;
+	cout << "\n\t PROMEDIO DE NOTAS: " << prom << endl;
+	
+	return 0;
+}
